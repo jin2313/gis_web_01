@@ -13,9 +13,10 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent # resolve()까지: 현재 settings.py의 운영체제 상 경로, practice_01 -> 최상위 practice_01가 됨
 env_list = dict()
-local_env = open(os.path.join(BASE_DIR, '.env'))
+local_env = open(os.path.join(BASE_DIR, '.env')) # BASE_DIR과 .env를 join하여 운영체제 상에서
+
 while True:
     line = local_env.readline()
     if not line:

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.html' %}
+<body>
+{% include 'header.html' %} # 별도의 파일로 분리한 html 파일을 가져와서 씀
+{%  block content %}
+{%  endblock %}
+{% include 'footer.html' %}
+</body>
+</html>
