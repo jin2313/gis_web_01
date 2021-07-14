@@ -27,9 +27,6 @@ def hello_world(request):
 
 
 
-
-
-
 class AccountCreateView(CreateView):
     model = User
     form_class = UserCreationForm # 입력 폼을 뭘 쓸건지

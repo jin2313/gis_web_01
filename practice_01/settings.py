@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent # resolve()까지: 현재 settings.py의 운영체제 상 경로, practice_01 -> 최상위 practice_01가 됨
 env_list = dict()
 local_env = open(os.path.join(BASE_DIR, '.env')) # BASE_DIR과 .env를 join하여 운영체제 상에서
@@ -114,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr' # 언어 한국어로 설정
 
 TIME_ZONE = 'UTC'
 
@@ -138,3 +140,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = reverse_lazy('accountapp:hello_world') # 로그인이 성공했을 때 어디로 갈지
+LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')
