@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from accountapp.models import HelloWorld
 
@@ -25,10 +25,14 @@ def hello_world(request):
 
 
 
-
-
 class AccountCreateView(CreateView):
     model = User
     form_class = UserCreationForm # 입력 폼을 뭘 쓸건지
     success_url = reverse_lazy('accountapp:hello_world') # 클래스에서는 reverse 대신 reverse_lay 사용
     template_name = 'accountapp/create.html'
+
+
+class AccountDetailView(DetailView):
+    model = User
+    context_object_name = 'target_user' # html에서 특정 객체에 접근하는 이름 지정
+    template_name = 'accountapp/detail.html'
