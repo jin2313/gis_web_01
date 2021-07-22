@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 
-class Profile(models.Model):
+class Profile(models.Model): # 클래스 명의 소문자 버전이 db의 이름으로 지정됨 -> 바꿀 수도 있음
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     # on_delete: 연결되어 있는 유저 객체가 사라지면 얘도 삭제
     # related_name: 연결된 유저 객체에서 'profile'을 사용해서 이 모델에 접근 가능
