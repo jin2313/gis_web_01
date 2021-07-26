@@ -8,7 +8,8 @@
         <h4>Create Profile</h4>
     </div>
     <div>
-        <form action="{% url 'profileapp:create' %}" method="post">
+        <form action="{% url 'profileapp:create' %}" enctype="multipart/form-data" method="post">
+        <!-- enctype이 없으면 기본적으로 모두 문자열로 생각 -> 이미지 파일이 있기 때문에 enctype이 없으면 파일이 제대로 전송이 안 돼서 에러 발생 -->
             {%  csrf_token %}
             {% bootstrap_form form %}
             <div class="m-5">
