@@ -142,7 +142,7 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/' # media 파일을 받았을 때 이 url로 연결?헤 주는 것
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 이미지가 저장되는 media 경로가 여기임
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
