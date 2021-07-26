@@ -18,6 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accountapp.urls')),
+    path('accounts/', include('accountapp.urls')), # 주소창에 이거를 치면 accounts에서 하위 분기를 한다는 뜻
     path('profile/', include('profileapp.urls'))
 ]
