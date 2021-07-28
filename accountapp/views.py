@@ -31,8 +31,11 @@ def hello_world(request):
 class AccountCreateView(CreateView):
     model = User
     form_class = UserCreationForm # 입력 폼을 뭘 쓸건지
-    success_url = reverse_lazy('accountapp:hello_world') # 클래스에서는 reverse 대신 reverse_lay 사용
+    # success_url = reverse_lazy('accountapp:hello_world') # 클래스에서는 reverse 대신 reverse_lay 사용
     template_name = 'accountapp/create.html'
+
+    def get_success_url(self):
+        return reverse('accountapp:detail', kwargs={'pk': self.object.pk}) # 여기서 self.object가 지칭하는 것은 target_user
 
 
 class AccountDetailView(DetailView):
@@ -49,9 +52,11 @@ has_ownership = [login_required, account_ownership_required]
 class AccountUpdateView(UpdateView):
     model = User
     form_class = AccountCreationForm
-    success_url = reverse_lazy('accountapp:hello_world')
     context_object_name = 'target_user'
     template_name = 'accountapp/update.html'
+
+    def get_success_url(self):
+        return reverse('accountapp:detail', kwargs={'pk': self.object.pk})
 
 
 @method_decorator(has_ownership, 'get')
