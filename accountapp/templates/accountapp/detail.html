@@ -17,16 +17,14 @@
             <h2 class="NNS_B"><a href="{% url 'profileapp:create' %}">Create Profile</a></h2>
         {% endif %}
     </div>
-    <div>
+    <!-- <div>
         {{ target_user.date_joined }}
-    </div>
+    </div> -->
 
     {% if user == target_user %}
     <div>
-        <a href="{% url 'accountapp:update' pk=target_user.pk %}">회원 정보 수정</a>
-    </div>
-    <div>
-        <a href="{% url 'accountapp:delete' pk=target_user.pk %}">회원 정보 삭제</a>
+        <a href="{% url 'accountapp:update' pk=target_user.pk %}" class="material-icons round_button mx-1">settings</a> <!-- mx-1: 마진을 수평방향으로 1만큼 -->
+        <a href="{% url 'accountapp:delete' pk=target_user.pk %}" class="material-icons round_button mx-1">close</a>
     </div>
     {% endif %}
 </div>
