@@ -23,5 +23,5 @@ urlpatterns = [
     path('accounts/', include('accountapp.urls')), # 주소창에 이거를 치면 accounts에서 하위 분기를 한다는 뜻
     path('profiles/', include('profileapp.urls')), # 여기 적힌 url이 profileapp의 urls에 적힌 app_name을 뜻함
     path('articles/', include('articleapp.urls')),
-    path('comments/', include('commentapp.urls')) # include: commentapp에서 하위 분기
+    path('comments/', include('commentapp.urls')), # include: commentapp에서 하위 분기
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # 개발 환경에서 이미지를 제공해 줄 수 있는 코드 (배포용에 사용하면 안 됨)
