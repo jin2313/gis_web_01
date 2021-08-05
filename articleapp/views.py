@@ -57,4 +57,4 @@ class ArticleListView(ListView):
     model = Article
     context_object_name = 'article_list'
     template_name = 'articleapp/list.html'
-    paginate_by = 20 # 한 페이지에 몇개의 이미지를 출력할 것인지
+    paginate_by = 2 # 한 페이지에 몇개의 이미지를 출력할 것인지
