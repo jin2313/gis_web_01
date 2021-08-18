@@ -27,7 +27,6 @@ class ProfileCreateView(CreateView):
         return reverse('accountapp:detail', kwargs={'pk': self.object.user.pk}) # self.object == target_profile과 같은 뜻
 
 
-
 @method_decorator(profile_ownership_required, 'get')
 @method_decorator(profile_ownership_required, 'post')
 class ProfileUpdateView(UpdateView):
