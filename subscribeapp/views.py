@@ -13,7 +13,7 @@ from subscribeapp.models import Subscription
 @method_decorator(login_required, 'get')
 class SubscriptionView(RedirectView):
     def get(self, request, *args, **kwargs):
-        user = request.user # 지금 요청을 보내는 유저
+        user = request.user # 지금 요청을 보내는 유저 -> 로그인되어 있지 않을 때 실행하면 문제가 생김
         project = Project.objects.get(pk=kwargs['project_pk']) # 지금 요청하는 유저가 구독을 누른 프로젝트
         # request 요청의 kwargs 안에 있는 project_pk를 의미
         subscription = Subscription.objects.filter(user=user, project=project)
