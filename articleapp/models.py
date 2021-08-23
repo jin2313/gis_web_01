@@ -18,3 +18,4 @@ class Article(models.Model):
     # TestField: 긴 텍스트를 받을 때 쓰는 것
     created_at = models.DateField(auto_now_add=True)
     # auto_now_add: 굳이 서버에 설정하거나 사용자에게 입력받지 않아도 db에 생성된 시간을 기록해 자동으로 출력하는 것
+    like = models.IntegerField(default=0)
