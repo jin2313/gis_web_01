@@ -25,5 +25,7 @@ urlpatterns = [
     path('articles/', include('articleapp.urls')),
     path('comments/', include('commentapp.urls')), # include: commentapp에서 하위 분기
     path('projects/', include('projectapp.urls')),
+
     path('subscribe/', include('subscribeapp.urls')),
+    path('likes/', include('likeapp.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # 개발 환경에서 이미지를 제공해 줄 수 있는 코드 (배포용에 사용하면 안 됨)
