@@ -18,13 +18,13 @@ from likeapp.models import LikeRecord
 def db_transaction(user, article):
     likeRecord = LikeRecord.objects.filter(user=user, article=article)
 
+    article.like += 1
+    article.save()
+
     if likeRecord.exists():
         raise ValidationError('좋아요가 이미 존재합니다.') # 유저가 보는 것 X, 우리가 보는 에러 메시지
     else:
         LikeRecord(user=user, article=article).save()
-
-    article.like += 1
-    article.save()
     # 새로운 LikeRecord를 찍는 것, 좋아요를 +1 해 주는 것이 하나의 함수 안에 있어서 트랜잭션이 됨
 
 
