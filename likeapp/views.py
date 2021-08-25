@@ -20,7 +20,7 @@ class LikeArticleView(RedirectView):
         likeRecord = LikeRecord.objects.filter(user=user, article=article)
 
         if likeRecord.exists():
-            return HttpResponseRedirect(reverse('articleapp:detail'), kwargs={'pk': kwargs['article_pk']}) # 좋아요를 이미 눌렀을 때 좋아요를 누른 게시글로 다시 되돌아감
+            return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk': kwargs['article_pk']})) # 좋아요를 이미 눌렀을 때 좋아요를 누른 게시글로 다시 되돌아감
         else:
             LikeRecord(user=user, article=article).save()
 
