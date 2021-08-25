@@ -1,5 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
@@ -12,26 +14,36 @@ from articleapp.models import Article
 from likeapp.models import LikeRecord
 
 
+@transaction.atomic # 아래의 함수를 하나의 인터렉션으로 묶어주는 기능
+def db_transaction(user, article):
+    likeRecord = LikeRecord.objects.filter(user=user, article=article)
+
+    if likeRecord.exists():
+        raise ValidationError('좋아요가 이미 존재합니다.') # 유저가 보는 것 X, 우리가 보는 에러 메시지
+    else:
+        LikeRecord(user=user, article=article).save()
+
+    article.like += 1
+    article.save()
+    # 새로운 LikeRecord를 찍는 것, 좋아요를 +1 해 주는 것이 하나의 함수 안에 있어서 트랜잭션이 됨
+
+
 @method_decorator(login_required, 'get')
 class LikeArticleView(RedirectView):
     def get(self, request, *args, **kwargs):
         user = request.user
         article = Article.objects.get(pk=kwargs['article_pk']) # 단일 객체 받아올 때는 get 사용
         # 주소창에서 받은 pk를 가지고 있는 article을 불러오는 것
-        likeRecord = LikeRecord.objects.filter(user=user, article=article)
 
-        if likeRecord.exists():
+        try:
+            db_transaction(user, article)
+            # 좋아요 반영 O
+            messages.add_message(request, messages.SUCCESS, '좋아요가 반영되었습니다.')
+        except ValidationError:
             # 좋아요 반영 X
-            messages.add_message(request, messages.ERROR, '좋아요는 한 번만 가능합니다.') # messages.~~: 원하는 레벨 지정
-            return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk': kwargs['article_pk']})) # 좋아요를 이미 눌렀을 때 좋아요를 누른 게시글로 다시 되돌아감
-        else:
-            LikeRecord(user=user, article=article).save()
+            messages.add_message(request, messages.ERROR, '좋아요는 한 번만 가능합니다.')  # messages.~~: 원하는 레벨 지정
+            return HttpResponseRedirect(reverse('articleapp:detail', kwargs={'pk': kwargs['article_pk']}))  # 좋아요를 이미 눌렀을 때 좋아요를 누른 게시글로 다시 되돌아감
 
-        article.like += 1
-        article.save()
-
-        # 좋아요 반영 O
-        messages.add_message(request, messages.SUCCESS, '좋아요가 반영되었습니다.')
         return super().get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):
