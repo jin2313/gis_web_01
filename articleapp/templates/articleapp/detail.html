@@ -20,7 +20,7 @@
         {# 게시글 내용 #}
         <img src="{{ target_article.image.url }}" alt="" class="article_image">
         <div class="article_content">
-            {{ target_article.content }}
+            {{ target_article.content | safe }} {# safe: 위험한 태그를 삭제하고, 우리가 적용한 건 화면에 나타내줌 #}
         </div>
         {% if target_article_writer == user %}
         <div>
