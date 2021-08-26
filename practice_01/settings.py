@@ -160,5 +160,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # 이미지가 저장되는 media �
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy('accountapp:hello_world') # 로그인이 성공했을 때 어디로 갈지
+LOGIN_REDIRECT_URL = reverse_lazy('articleapp:list') # 로그인이 성공했을 때 어디로 갈지
 LOGOUT_REDIRECT_URL = reverse_lazy('accountapp:login')
