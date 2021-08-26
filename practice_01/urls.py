@@ -18,7 +18,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from articleapp.views import ArticleListView
+
 urlpatterns = [
+    path('', ArticleListView.as_view(), name='home'), # 메인 페이지
+
     path('admin/', admin.site.urls),
     path('accounts/', include('accountapp.urls')), # 주소창에 이거를 치면 accounts에서 하위 분기를 한다는 뜻
     path('profiles/', include('profileapp.urls')), # 여기 적힌 url이 profileapp의 urls에 적힌 app_name을 뜻함

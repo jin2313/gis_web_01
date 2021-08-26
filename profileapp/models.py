@@ -11,6 +11,6 @@ class Profile(models.Model): # 클래스 명의 소문자 버전이 db의 이름
     # upload_to: 받아온 이미지를 이 경로에 저장
     nickname = models.CharField(max_length=30, unique=True)
     # unique: 고유한 값만 가능
-    message = models.CharField(max_length=200, null=True)
+    message = models.CharField(max_length=200, null=True, blank=True)
     # null: 꼭 있어야 하는 건 아님 (있어도 되고 없어도 됨)
     # null은 db에 입력될 때 null이 가능하다는 것이지, 폼에 입력받을 때 null이 가능하다는 것은 아님 -> 폼에 입력을 받을 때도 null이 가능하게 하려면 따로 지정해 줘야 함
