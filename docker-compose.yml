@@ -8,9 +8,21 @@ services:
     volumes:
       - gis1_static:/data/static/
       - gis1_media:/data/media/
+      - gis1_log:/var/log/nginx/
       - /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - 80:80
+      - mode: host
+        protocol: tcp
+        target: 80
+        published: 80
+
+  goaccess:
+    image: allinurl/goaccess:1.5.1
+    ports:
+      - 7890:7890
+    volumes:
+      - gis1_log:/var/log/nginx/
+    command: /var/log/nginx/gis1_access.log -o /var/log/nginx/report.html --log-format=COMBINED --real-time-html
 
   django:
     image: gis1_django:5
@@ -47,6 +59,7 @@ volumes:
   gis1_static:
   gis1_media:
   gis1_mariadb:
+  gis1_log:
 
 secrets:
   MARIADB_USER:
